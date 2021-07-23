@@ -21,6 +21,7 @@ app.delete('/notes/:id', (req, res) => {
     console.log(req.params.id);
     store.deleteNote(req.params.id).then((res) => res.json({ ok:true }))
     .catch((err) => res.status(500).json(err))
+    res.send('deleting note')
 });
 
 module.exports = app;
