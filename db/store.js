@@ -1,8 +1,9 @@
 const fs = require('fs');
-const utils = require('utils');
+const util = require('util');
 
 
-const uuidv1 = require('uuid/v1');
+const { v4: uuidv4 } = require('uuid');
+// uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -34,10 +35,10 @@ class Store {
     const { title, text } = note;
 
     if (!title || !text) {
-      throw new Error("Note 'title' and 'text' cannot be blank");
+      throw new Error("Must enter text");
     }
 
-    const newNote = { title, text, id: uuidv1() };
+    const newNote = { title, text, id: uuidv4() };
 
     return this.getNotes()
       .then((notes) => [...notes, newNote])
@@ -46,7 +47,6 @@ class Store {
   }
   
   removeNote(id) {
-    // Get all notes, remove the note with the given id, write the filtered notes
     return this.getNotes()
       .then((notes) => notes.filter((note) => note.id !== id))
       .then((filteredNotes) => this.write(filteredNotes));

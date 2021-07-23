@@ -1,7 +1,7 @@
 //Require in express and router
 const express = require('express');
 const app = express.Router();
-const Store = require('Store');
+const Store = require('../db/store');
 //Make a get request and a post request
 app.get('/notes', (req, res) => {
 
