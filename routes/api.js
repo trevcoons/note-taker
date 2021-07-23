@@ -15,8 +15,8 @@ app.get('/notes', (req, res) => {
          return res.json(note)}) 
          .catch((err) => res.status(500).json(err))
  });
-//Delete request to delete notes
-
+ 
+ //Delete request to delete notes
 app.delete('/notes/:id', (req, res) => {
     console.log(req.params.id);
     store.deleteNote(req.params.id).then((res) => res.json({ ok:true }))
